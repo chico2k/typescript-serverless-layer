@@ -16,27 +16,18 @@
         "lib": ["ES6", "ES2019", "ES2020"],
         "baseUrl": ".",
         "paths": {
-            "/opt/externals/*": ["layers/externals/node_modules/*"],
-            "/opt/database/src/*": ["layers/database/src/*"]
-        },
-        "typeRoots": [
-            "./node_modules/@types/",
-            "./layers/externals/node_modules/@types/",
-            "./opt/layers/externals/node_modules/@types/",
-            "layers/externals/node_modules/@types/",
-            "/opt/externals/node_modules/@types/",
-            "opt/externals/node_modules/@types/",
-            "opt/layers/externals/node_modules/@types/"
-        ]
+            "externals/@middy/core": ["layers/externals/nodejs/node_modules/@middy/core"],
+            "externals/uuid": [
+                "layers/externals/nodejs/node_modules/uuid",
+                "layers/externals/nodejs/node_modules/@types/uuid"
+            ],
+            "externals/aws-lambda": [
+                "layers/externals/nodejs/node_modules/aws-lambda",
+                "layers/externals/nodejs/node_modules/@types/aws-lambda"
+            ],
+            "database": ["layers/database/src/index.ts"]
+        }
     },
     "include": ["."],
-    "exclude": [
-        // "node_modules/**/*",
-        ".serverless/**/*",
-        ".webpack/**/*",
-        "_warmup/**/*",
-        "src/__test__/**/*",
-        "src/lib/Types/graphql.ts",
-        ".vscode/**/*"
-    ]
+    "exclude": ["node_modules/**/*", ".serverless/**/*", ".webpack/**/*"]
 }

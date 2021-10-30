@@ -5,37 +5,36 @@ variablesResolutionMode: 20210326
 configValidationMode: error
 
 custom:
-  stage: ${opt:stage, self:provider.stage}
-  esbuild:
-    packager: yarn 
-    bundle: true
-    minify: true
+    stage: ${opt:stage, self:provider.stage}
 
-package: 
-   excludeDevDependencies: true
+    esbuild:
+        packager: yarn
+        bundle: true
+        minify: true
+
+package:
+    excludeDevDependencies: true
 
 provider:
-  name: aws
-  region: us-east-1
-  stage: dev
-  runtime: nodejs14.x
-  lambdaHashingVersion: 20201221
-  environment:
+    name: aws
+    region: us-east-1
+    stage: dev
+    runtime: nodejs14.x
+    lambdaHashingVersion: 20201221
+    environment:
 
 plugins:
-  - serverless-esbuild
-  - serverless-offline
-
+    - serverless-esbuild
+    - serverless-plugin-ifelse
+    - serverless-offline
 
 functions:
-  getLedgerRecords:
-    handler: src/handlers/ledger.ledgerRecords
-    events:
-      - http:
-          path: /ledger-records
-          method: get
-    layers:
-      - ${cf:my-app-layer-${self:custom.stage}.DatabaseLayerExport}
-      - ${cf:my-app-layer-${self:custom.stage}.ExternalLayerExport}
-
-    
+    getRecords:
+        handler: src/handlers/index.getRecords
+        events:
+            - http:
+                  path: /getRecords
+                  method: get
+        layers:
+            - ${cf:data-layer-${self:custom.stage}.DatabaseLayerExport}
+            - ${cf:externals-layer-${self:custom.stage}.ExternalLayerExport}

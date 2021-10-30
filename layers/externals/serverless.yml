@@ -1,4 +1,4 @@
-service: my-app-layer
+service: externals-layer
 frameworkVersion: '2.64'
 useDotenv: true
 variablesResolutionMode: 20210326
@@ -6,10 +6,6 @@ configValidationMode: error
 
 custom:
     stage: ${opt:stage, self:provider.stage}
-    esbuild:
-        packager: yarn
-        bundle: true
-        minify: true
 
 package:
     excludeDevDependencies: true
@@ -23,15 +19,8 @@ provider:
     environment:
 
 layers:
-    Database:
-        path: ./database/dist/
-        name: database-${self:custom.stage}-
-        description: 'Database dependencies'
-        compatibleRuntimes:
-            - nodejs14.x
-        retain: false
     External:
-        path: ./externals/
+        path: .
         name: external-${self:custom.stage}
         description: 'Common dependencies'
         compatibleRuntimes:
@@ -39,16 +28,10 @@ layers:
         retain: false
 
 plugins:
-    - serverless-esbuild
     - serverless-offline
 
 resources:
     Outputs:
-        DatabaseLayerExport:
-            Value:
-                Ref: DatabaseLambdaLayer
-            Export:
-                Name: DatabaseLambdaLayer-${self:provider.stage}
         ExternalLayerExport:
             Value:
                 Ref: ExternalLambdaLayer

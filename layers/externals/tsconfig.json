@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "preserveConstEnums": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "allowJs": false,
+        "target": "ES2020",
+        "module": "CommonJS",
+        "outDir": "./dist/",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "lib": ["ES6", "ES2019", "ES2020"],
+        "baseUrl": ".",
+        "skipLibCheck": true
+    },
+    "typeRoots": [
+        "layers/externals/node_modules/@types/",
+        "./layers/externals/node_modules/@types/",
+        "./node_modules/@types/",
+        "/opt/externals/node_modules/@types/",
+        "/opt/layers/externals/node_modules/@types/",
+        "opt/externals/node_modules/@types/",
+        "opt/layers/externals/node_modules/@types/"
+    ],
+    "exclude": ["node_modules"],
+    "include": ["."]
+}
